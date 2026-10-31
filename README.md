@@ -7,10 +7,20 @@
 | Add-in | Phiên bản mới nhất hiện có trên GitHub | Repository | ZIP | Trạng thái |
 | --- | --- | --- | --- | --- |
 | DBox | V5 | [Tidi6969/DBox](https://github.com/Tidi6969/DBox) | [DBox-V5.zip](https://github.com/Tidi6969/DBox/blob/main/V5/DBox-V5.zip) | Đã lưu ZIP V5; build và chạy thử trên CAD: chưa được xác minh ở danh mục này |
-| DPunch | V390 | [Tidi6969/Dpunch](https://github.com/Tidi6969/Dpunch) | [DPunch-V390.zip](https://github.com/Tidi6969/Dpunch/blob/main/V390/DPunch-V390.zip) | Đã lưu ZIP V390; build và chạy thử trên CAD: chưa được xác minh ở danh mục này |
+| DPunch | V390 | [Tidi6969/Dpunch](https://github.com/Tidi6969/Dpunch) | [DPunch-V390.zip](https://github.com/Tidi6969/Dpunch/blob/main/V390/DPunch-V390.zip) | Snapshot nguồn gốc; chủ dự án duyệt làm baseline; Build/Runtime: NotVerified; CAD target: chưa xác minh; đồng bộ 31/10/2026 |
 | DJoin | V14 (nguồn tham khảo cũ) | Chưa xác nhận repository | — | Chưa xác minh có bản lưu trên GitHub |
 
 **Đối chiếu kho ngày 31/10/2026:** đã kiểm tra sự tồn tại của các đường dẫn ZIP nêu trong bảng qua cây file GitHub. Việc một file ZIP tồn tại **không** chứng minh build thành công hay NETLOAD/runtime đã PASS.
+
+## DPunch V390 — thông tin lưu trữ
+
+- **Bản chuẩn:** V390, được chủ dự án chấp thuận để lưu trữ và làm nền cải tiến ngày 31/10/2026 (Asia/Bangkok). Giữ nguyên ZIP và changelog gốc.
+- **Loại bản:** snapshot nguồn gốc, chưa xác minh build; không công bố là bản phát hành đã nghiệm thu CAD.
+- **BuildStatus / RuntimeStatus / StandardsStatus:** `NotVerified`. Changelog gốc chưa xác nhận build Windows, NETLOAD hoặc kiểm thử UI; lời duyệt lưu trữ không xác định kết quả kiểm thử trên từng CAD.
+- **CAD target trong gói:** `NotVerified` — chưa đọc được nội dung ZIP; không suy từ các target tiêu chuẩn của hệ thống.
+- **Kiểm tra lưu trữ:** ZIP tồn tại trên GitHub, 11.063.361 byte, Git blob SHA `c2251dcee0b32d389b34f5e4bfbfe39a0c33cea0`. Nội dung ZIP/CRC/SHA-256: `NotVerified` do công cụ hiện có chưa trả được dữ liệu ZIP.
+- **Liên kết:** [ZIP V390](https://github.com/Tidi6969/Dpunch/blob/main/V390/DPunch-V390.zip) · [Changelog](https://github.com/Tidi6969/Dpunch/blob/main/Change%20log/V390.txt) · [Biên bản lưu trữ](https://github.com/Tidi6969/Dpunch/blob/main/V390/ArchiveInfo.json).
+- **Ngày đồng bộ:** 31/10/2026 (Asia/Bangkok). Phiên bản mới nhất đã lưu vẫn là V390; chưa sửa mã nguồn, tăng phiên bản hoặc build lại.
 
 ## Mục tiêu CAD
 
