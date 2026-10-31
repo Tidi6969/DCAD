@@ -1,3 +1,0 @@
-DDimnotes V74
-- Fixed CS0103 in LoadUserSettings: removed references to mainOrdinateStack and minAxisSpacing from tolerance string loading only.
-- Kept V73 dynamic language loading and existing Log folder structure.
