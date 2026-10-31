@@ -12,7 +12,7 @@ DCAD là hệ thống quản lý các dự án Add-in AutoCAD độc lập.
 
 | Add-in | Phiên bản nguồn tham khảo | Repository | Trạng thái |
 | --- | --- | --- | --- |
-| DBox | V4 | DCAD-DBox | Chưa thiết lập |
+| DBox | V4 | [Tidi6969/DBox](https://github.com/Tidi6969/DBox) | Đã tạo repository; đang nhập mã nguồn |
 | DJoin | V14 | DCAD-DJoin | Chưa thiết lập |
 | DPunch | V390 | DCAD-DPunch | Chưa thiết lập |
 
@@ -32,7 +32,7 @@ Các phiên bản trên là tên gói nguồn tham khảo, **không phải** b�
 ## Quy ước gợi ý
 
 - Repository quản lý: `Tidi6969/DCAD`
-- Repository Add-in: `Tidi6969/DCAD-<TênAddin>`
+- Repository Add-in: `Tidi6969/<TênAddin>` (ví dụ: `Tidi6969/DBox`)
 - Mỗi Add-in có `README.md`, hướng dẫn build và changelog riêng.
 - Không commit file tạm của Visual Studio như `.vs/`, `bin/`, `obj/` trừ khi có lý do kỹ thuật cụ thể.
 
