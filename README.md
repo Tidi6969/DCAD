@@ -6,7 +6,7 @@
 
 | Add-in | Phiên bản mới nhất hiện có trên GitHub | Repository | ZIP | Trạng thái |
 | --- | --- | --- | --- | --- |
-| DBox | V5 | [Tidi6969/DBox](https://github.com/Tidi6969/DBox) | [DBox-V5.zip](https://github.com/Tidi6969/DBox/blob/main/V5/DBox-V5.zip) | Đã lưu ZIP V5; build và chạy thử trên CAD: chưa được xác minh ở danh mục này |
+| DBox | V5 | [Tidi6969/DBox](https://github.com/Tidi6969/DBox) | [DBox-V5.zip](https://github.com/Tidi6969/DBox/blob/main/V5/DBox-V5.zip) | Đã lưu ZIP V5; build và chạy thử trên CAD: chưa được xác minh ở danh mục này; 03/11/2026 người dùng báo DBox-V7 build/chạy OK (chưa rõ từng host); ZIP V7 chưa có trên GitHub, chưa có ba DLL build mới trong ZIP nguồn đã bàn giao; UserReportedWorking=YES, V7 GitHub=NotSynced, Build/NETLOAD/Runtime theo host=NotVerified. Giữ V5 là mới nhất đã lưu, không đánh dấu V7 Release hoàn tất |
 | DPunch | V390 | [Tidi6969/Dpunch](https://github.com/Tidi6969/Dpunch) | [DPunch-V390.zip](https://github.com/Tidi6969/Dpunch/blob/main/V390/DPunch-V390.zip) | Snapshot nguồn gốc; chủ dự án duyệt làm baseline; Build/Runtime: NotVerified; CAD target: chưa xác minh; đồng bộ 31/10/2026 |
 | DCPart | V55 | [Tidi6969/DCPart](https://github.com/Tidi6969/DCPart) | [DCPart-V55.zip](https://github.com/Tidi6969/DCPart/blob/main/V55/DCPart-V55.zip) | Snapshot nguồn gốc; Build/Runtime: NotVerified; target dự án: AutoCAD2022, AutoCAD2025, GstarCAD2027; ZIP CRC PASS và Git blob khớp nguồn; đồng bộ 02/11/2026 |
 | DClean | V1 | [Tidi6969/DClean](https://github.com/Tidi6969/DClean) | [DClean-V1.zip](https://github.com/Tidi6969/DClean/blob/main/V1/DClean-V1.zip) | Snapshot nguồn gốc; Build/Runtime: NotVerified; target dự án: AutoCAD2022; ZIP CRC và Git blob khớp nguồn; đồng bộ 31/10/2026 |
