@@ -42,7 +42,7 @@ Các target tiêu chuẩn của hệ thống là **AutoCAD 2022, AutoCAD 2025 v�
 
 ## Quy trình giao việc và tự đồng bộ
 
-1. Chủ dự án giao yêu cầu sửa code hoặc phiên bản mới **tại ChatGPT** và chỉ định baseline, phiên bản đích, CAD mục tiêu (hoặc dùng các thông tin đã thống nhất trong cuộc hội thoại).
+1. Chủ dự án giao yêu cầu sửa code hoặc phiên bản mới **tại ChatGPT**. Ưu tiên baseline/version chỉ định; nếu không chỉ định bản gốc thì tự lấy phiên bản gần nhất đã lưu của đúng module trên GitHub, nếu không chỉ định version đích thì tăng số lớn nhất đã lưu đúng 1 (V49 → V50). CAD mục tiêu dùng phạm vi đã giao/thống nhất; giữ các bản cũ và ghi riêng bản mới nhất với bản đã nghiệm thu theo STD-01/17. Chỉ lưu nguyên bản hoặc đồng bộ metadata không tự tăng version phần mềm.
 2. Trợ lý đọc mã nguồn gốc, chỉ sửa nội dung được yêu cầu, kiểm tra cấu trúc, build và QA đúng khả năng môi trường. Khi chưa chạy build/CAD thực tế phải ghi **NotVerified**, không tuyên bố PASS.
 3. Chỉ khi đạt điều kiện phát hành của [DCAD-STD-17 — Autoupdate](https://github.com/Tidi6969/QuyUoc/blob/main/17_Autoupdate.md), tự đóng gói và upload ZIP cùng changelog vào repository Add-in; nếu chỉ được yêu cầu lưu snapshot nguồn, phải ghi đúng loại bản.
 4. **Sau khi xác minh ZIP đã có trên GitHub**, tự cập nhật danh mục DCAD: tên Add-in, phiên bản mới nhất, trạng thái build/runtime, CAD target và link ZIP/changelog khi phù hợp. Việc này thuộc ủy quyền của yêu cầu phát hành, **không cần xác nhận upload lần hai**.
@@ -62,6 +62,8 @@ Các target tiêu chuẩn của hệ thống là **AutoCAD 2022, AutoCAD 2025 v�
 ## Quy chuẩn
 
 Áp dụng bộ quy ước tại [Tidi6969/QuyUoc](https://github.com/Tidi6969/QuyUoc), đặc biệt [17_Autoupdate.md](https://github.com/Tidi6969/QuyUoc/blob/main/17_Autoupdate.md) về tự động cập nhật module và DCAD.
+
+**Bộ quy ước hiện hành: V1.12 — 03/11/2026.** [Tải ZIP quy ước V1.12](https://github.com/Tidi6969/QuyUoc/blob/main/Releases/V1.12/QuyUoc-V1.12.zip). STD-05: tên thư mục cuối của entry Support Path phải khớp DData/DUser/DProgram/Dicon/Dhelp; không bắt đủ năm, cùng root hoặc vị trí cuối danh sách. Chỉ kiểm tài nguyên thực sự cần dùng; đường dẫn con ứng dụng phải khai báo riêng, ví dụ DProgram\Dnest\Dnest.exe. Lần cập nhật này chỉ sửa quy ước và metadata, không sửa hoặc build lại các Add-in.
 
 ## Chủ sở hữu
 
