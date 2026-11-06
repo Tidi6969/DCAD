@@ -68,3 +68,11 @@ Các target tiêu chuẩn của hệ thống là **AutoCAD 2022, AutoCAD 2025 v�
 ## Chủ sở hữu
 
 GitHub: [Tidi6969](https://github.com/Tidi6969)
+
+
+## Ứng dụng độc lập đang phát triển (không phải add-in CAD)
+
+| Ứng dụng | Phiên bản nguồn/toolkit | Repository | ZIP | Trạng thái |
+| --- | --- | --- | --- | --- |
+| DfreeCad | **V1-buildkit** — FreeCAD 1.1.4 Stable | [Tidi6969/DfreeCad](https://github.com/Tidi6969/DfreeCad) | [DfreeCad-V1-FullSource-BuildKit.zip](https://github.com/Tidi6969/DfreeCad/releases/download/V1-buildkit/DfreeCad-V1-FullSource-BuildKit.zip) | **Đã tạo và tải ZIP QA** ngày 06/11/2026; 1.846.628.731 byte; SHA256 `d61739fe91ddb835aa0c6ed119b92941a8befd0c5092d3446b8e0c11acd3d6b3`. Bao gồm source có submodule, LibPack, CMake, 7zip, bản tham chiếu upstream và Build.cmd. Đầu vào Microsoft VS2022/MSVC + Windows SDK không có trong ZIP, cần cài hợp lệ. `Packaging=PASS`; `BuildStatus=NotVerified`; `GUIRuntimeStatus=NotVerified`; `StandardsStatus=NotVerified`; `UserAcceptance=NotVerified`; chưa phát hành bản build FreeCAD từ nguồn đã nghiệm thu. [Workflow](https://github.com/Tidi6969/DfreeCad/actions/runs/42134562866) |
+
