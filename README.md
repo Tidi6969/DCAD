@@ -151,6 +151,50 @@ Phân biệt ba đối tượng: Integration.zip (đã ký V55), Gate DLL (SEC06
 
 Mỗi ca ghi Expected/Actual/Status/Host/Evidence theo AI-14–AI-18. Không sửa dữ liệu hoặc khóa thật để test. Chưa chọn thiết kế cuối, chưa sửa code, chưa tăng version. Quyết định phát triển và tiêu chí PASS phải được đối chiếu source V55, Gate client và nguồn DJoin thực tế trước khi triển khai.
 
+#### 3A. Phương pháp nghiên cứu và phát triển SEC-AT — Sentinel làm chuẩn, mã nguồn mở làm cơ sở
+
+**Đã được chủ dự án duyệt ngày 26/11/2026.** Lấy tài liệu công khai của Sentinel LDK Envelope (ưu tiên Windows V3 Engine cho native ARX) làm chuẩn kiến trúc, năng lực và tiêu chí đánh giá. Tìm các dự án mã nguồn mở, đặc tả và API hệ điều hành tương ứng từng năng lực để phát triển độc lập; không sao chép mã hay suy đoán thuật toán độc quyền của Thales. Tạm gọi lớp bảo vệ mục tiêu là DcadEnvelope, chưa quyết định cấu trúc đóng gói hoặc tạo ứng dụng/EXE riêng. Giữ V55, Licensecc, SEC06, quy trình cấp phép offline và STD-20 hiện hành.
+
+##### Ma trận ứng viên mã nguồn và công nghệ
+
+| Mã nghiên cứu | Năng lực mục tiêu | Nguồn ứng viên | Vai trò, giới hạn | Trạng thái |
+|---|---|---|---|---|
+| REF-01 | Phân tích binary PE/ARX/DLL | [LIEF](https://github.com/lief-project/LIEF), [Microsoft PE Format](https://learn.microsoft.com/en-us/windows/win32/debug/pe-format) | Đọc cấu trúc và dữ liệu chữ ký; không phải Anti-Tamper hoàn chỉnh | Chờ khảo sát/build nguyên bản |
+| REF-02 | File/Program Integrity Protection | [Authenticode](https://learn.microsoft.com/en-us/windows/win32/secbp/understanding-pe-signatures), [osslsigncode](https://github.com/mtrojnar/osslsigncode), [fs-verity](https://docs.kernel.org/filesystems/fsverity.html) | Ký/xác minh PE; tham khảo hash theo khối. fs-verity là cơ chế Linux, không đưa nguyên kernel sang Windows | Chờ kiểm chứng |
+| REF-03 | Code Encryption | [OpenSSL](https://github.com/openssl/openssl) | Thành phần mật mã tiêu chuẩn, không phải engine bảo vệ mã thực thi; ưu tiên tận dụng thư viện/API đã có nếu đủ | Chờ đánh giá nhu cầu |
+| REF-04 | Code Transformation / Obfuscation | [LLVM](https://github.com/llvm/llvm-project) | Hạ tầng compiler/IR; không có sẵn Envelope Plus của Thales | Nghiên cứu sau SEC-AT cơ bản |
+| REF-05 | Runtime / Section Integrity | [fsverity-utils](https://github.com/ebiggers/fsverity-utils), [Tigress Integrity](https://tigress.wtf/integrity.html) | Học nguyên lý; hash file không đồng nghĩa toàn vẹn RAM. Tigress không phải mã nguồn mở miễn phí cho mọi mục đích; chỉ nghiên cứu theo điều khoản cho phép | Chưa chọn triển khai |
+| REF-06 | Windowed Decryption | Tài liệu Sentinel V3 | Chưa tìm được hệ thống mở tương đương đã kiểm chứng | Chưa có ứng viên đạt |
+| REF-07 | Function Protection | LLVM, tài liệu Sentinel Envelope Plus | Nền tảng nghiên cứu, không mặc định chuyển được native ARX đã build sang IR | Chưa chọn triển khai |
+| REF-08 | Anti-Tamper chuyên sâu | Tài liệu Sentinel, nghiên cứu mở | Chưa tìm được bộ mã nguồn mở hoàn chỉnh đáp ứng mục tiêu | Chưa có ứng viên đạt |
+| REF-09 | License Enforcement | [Licensecc](https://github.com/open-license-manager/licensecc), TidiDcad V55 | Đã có nền tảng cấp phép; không thay hệ thống hiện hành | Giữ nguyên, nghiệm thu hồi quy |
+| REF-10 | Cưỡng chế xác minh mã | [Microsoft App Control](https://learn.microsoft.com/en-us/windows/security/application-security/application-control/app-control-for-business/appcontrol-and-applocker-overview), chính sách nạp CAD | Năng lực nền tảng Windows, không phải mã nguồn mở; không mặc định yêu cầu khách đổi chính sách máy | Chờ đánh giá tương thích |
+
+Các mã REF chỉ dùng theo dõi nguồn nghiên cứu, không thay ID năng lực SEC hoặc ca nghiệm thu AT01–AT08. Đây là danh sách ứng viên, không phải danh sách thư viện bắt buộc hay chứng nhận tương đương Sentinel.
+
+**Sàng lọc giấy phép:** LIEF (Apache-2.0), OpenSSL 3.x (Apache-2.0), LLVM (Apache-2.0 WITH LLVM-exception), osslsigncode (GPL-3.0 theo dự án), fsverity-utils (MIT; phân biệt với mã Linux kernel). Phải đọc LICENSE/NOTICE của đúng phiên bản/commit và dependency trước khi sao chép, liên kết hoặc phân phối; đánh giá nghĩa vụ GPL riêng, không mặc định được nhúng vào sản phẩm đóng. Công cụ có thể chỉ dùng để tham khảo hoặc kiểm chứng. Không tự thêm dependency khi thành phần hiện hành đủ dùng.
+
+##### Quy trình bắt buộc theo giai đoạn
+
+| Bước | Công việc | Điều kiện chuyển bước |
+|---|---|---|
+| 01 | Đọc tài liệu chính thức Sentinel Envelope và giới hạn từng engine | Có nguồn, phiên bản, năng lực xác nhận được; phân biệt thông tin công khai và giả thuyết |
+| 02 | Phân rã mục tiêu thành năng lực và tiêu chí nghiệm thu | Mỗi năng lực có mục đích, ranh giới bảo mật, đối tượng và hành vi mong đợi |
+| 03 | Tìm ứng viên mở/tiêu chuẩn/API tương ứng | Có URL nguồn chính thức và ma trận đối chiếu năng lực |
+| 04 | Rà chất lượng, phiên bản, giấy phép, phụ thuộc | Ghi commit/tag, LICENSE/NOTICE, điều kiện dùng thương mại, hỗ trợ Windows x64, rủi ro và bảo trì |
+| 05 | Build/chạy thử nguyên bản | Workspace cô lập; log và chứng cứ thật, không tự sửa upstream để ép PASS |
+| 06 | Đánh giá từng ứng viên | Đúng chức năng, khả năng tích hợp native, hiệu năng, giới hạn bảo mật và tình huống lỗi |
+| 07 | Chọn đúng thành phần cần thiết | Có lý do chọn/loại, ưu tiên đơn giản và tận dụng V55; không ghép tất cả thư viện |
+| 08 | Thiết kế DcadEnvelope/SEC-AT | Chốt trust anchor, đối tượng bảo vệ, ranh giới cưỡng chế, fail-closed, tương thích build/CAD; đánh giá tác động và được chủ dự án duyệt trước code |
+| 09 | Triển khai và kiểm thử độc lập | Tuân thủ STD-18 AI-14–AI-18, kiểm tra diff, test lại nguồn cuối |
+| 10 | Tích hợp thử DJoin native AutoCAD 2022 x64 | Đúng baseline được xác nhận; Build/APPLOAD/Runtime và kiểm thử chức năng giữ nguyên riêng |
+| 11 | Đối chiếu với chuẩn Sentinel | Báo đạt/một phần/chưa đạt theo tiêu chí có chứng cứ; ghi giới hạn thực tế, không tự tuyên bố tương đương |
+| 12 | Nghiệm thu và cập nhật tiến độ | Chủ dự án xác nhận; cập nhật trực tiếp mục này trong README DCAD theo STD-17, không tạo file roadmap riêng |
+
+**Nguyên tắc thực hiện:** kế thừa nguồn tốt đã được kiểm chứng; triển khai theo đặc tả và API chuẩn; không tự sáng tạo thuật toán mật mã; không coi mã hóa, ký số hay biến đổi mã đơn lẻ là hệ thống Anti-Tamper hoàn chỉnh. Nếu không tìm được ứng viên đủ tốt hoặc không thể xác minh baseline/giấy phép, ghi rõ blocker và tiếp tục nghiên cứu trước khi triển khai. Các giai đoạn bảo vệ file, bảo vệ điểm kiểm tra bản quyền, bảo vệ mã và bộ nhớ phải có tiêu chí riêng. Không được tự ý làm lại Gate, cấp License, thay chính sách Windows/CAD hoặc mở rộng ngoài phạm vi.
+
+**Tiến độ hiện tại:** phương pháp nghiên cứu đã được duyệt; danh sách ứng viên sơ bộ đã lập. Chưa khóa phiên bản upstream, chưa build/test nguyên bản, chưa xác nhận giấy phép theo commit, chưa chọn dependency cuối cùng, chưa thiết kế chi tiết hoặc code SEC-AT. Ưu tiên tiếp theo: khảo sát SEC-AT theo bước 01–04, sau đó build/test ứng viên cần thiết. Tất cả cổng chưa có bằng chứng giữ NotVerified.
+
 #### 4. Tài liệu chuẩn tham chiếu
 
 - [Thales — Sentinel LDK](https://docs.sentinel.thalesgroup.com/softwareandservices/ldk/default.htm)
@@ -171,3 +215,4 @@ Mỗi ca ghi Expected/Actual/Status/Host/Evidence theo AI-14–AI-18. Không s�
 #### 5. Lịch sử tiến độ
 
 - 26/11/2026: V55 được chủ dự án xác nhận chạy OK; roadmap lấy Sentinel LDK làm chuẩn; chọn chống sửa Add-in làm giai đoạn tiếp theo. Chưa code giai đoạn SEC-AT. Giữ nguyên snapshot V55 và các quy ước đang hiệu lực.
+- 26/11/2026: Chủ dự án duyệt phương pháp nghiên cứu SEC-AT: Sentinel Envelope là chuẩn tham chiếu, các thành phần mở/tiêu chuẩn là cơ sở phát triển độc lập; thêm ma trận REF-01–REF-10 và quy trình 12 bước ngay trong README. Chưa chọn dependency cuối, chưa code, chưa tăng version.
