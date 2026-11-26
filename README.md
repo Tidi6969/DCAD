@@ -75,11 +75,11 @@ GitHub: [Tidi6969](https://github.com/Tidi6969)
 | Ứng dụng | Phiên bản nguồn/toolkit | Repository | ZIP | Trạng thái |
 | --- | --- | --- | --- | --- |
 | DfreeCad | **V12-update** — sửa build tăng dần và cập nhật DProgram an toàn | [Tidi6969/DfreeCad](https://github.com/Tidi6969/DfreeCad) | [DfreeCad-V12-Update.zip](https://github.com/Tidi6969/DfreeCad/releases/download/V12-update/DfreeCad-V12-Update.zip) | **Mới nhất đã lưu: V12 (11/11/2026)** — ZIP cập nhật 5.699 byte, SHA256 `e168d17b2545b4f6a6c46e5e64a6a84cc7d28dd502cafdc0dc4509d1a9469979`. **Nguồn đầy đủ V9** ([ZIP V9](https://github.com/Tidi6969/DfreeCad/releases/download/V9-fullsource/DfreeCad-V9-FullSource-BuildKit.zip)) + cập nhật V10 (compiler) và V11 (Measurement). Log người dùng `Build-20261111-160857.log`: MSVC 14.30+NMake PASS; V10 từ chối `DProgram\DfreeCad` có sẵn trước CMake. V12 tạo Build-V12.ps1, giữ build cache, staging riêng; sau khi kiểm tra EXE mới thành công, sao lưu DProgram cũ và thay bản mới. **QA áp dụng nguồn/ZIP và mô phỏng thay cũ, giữ backup, từ chối staging thiếu file=PASS** ([Windows CI](https://github.com/Tidi6969/DfreeCad/actions/runs/42994081641)); **rollback khi lỗi ở giữa bước chuyển bản=NotVerified**; **Build thực tế/Runtime Measurement=NotVerified**, **nghiệm thu người dùng=NotVerified**. Gói cập nhật nguồn, chưa có EXE được xác nhận. |
-| TidiDcad | **V59** — baseline duy trì, chủ dự án xác nhận build OK 26/11/2026 | Chưa xác định kho module riêng | Chưa xác minh ZIP trên GitHub | SEC-AT đã triển khai, kiểm nghiệm các ca chính với Dtscr V121 / AutoCAD 2022; SEC-07 **tạm dừng phát triển**. |
+| TidiDcad | **V59** — baseline duy trì, chủ dự án xác nhận build OK 26/11/2026 | Chưa xác định kho module riêng | Chưa xác minh ZIP trên GitHub | SEC-AT đã triển khai, kiểm nghiệm các ca chính với Dtscr V121 / AutoCAD 2022; SEC-07 **tạm dừng phát triển**; hạng mục 08 Machine Identity V2 đã chốt SMBIOS 2/3, chưa code. |
 
 ### Tổng thể hướng phát triển thực tế — TidiDcad
 
-**Baseline hiện tại: V59** — giữ nguyên năm hạng mục bảo mật từ V55, bổ sung chống sửa Add-in; duy trì sáu hạng mục, tạm dừng hạng mục 07 theo quyết định chủ dự án ngày 26/11/2026.
+**Baseline hiện tại: V59** — giữ nguyên năm hạng mục bảo mật từ V55, bổ sung chống sửa Add-in; duy trì sáu hạng mục, tạm dừng hạng mục 07, bổ sung Plan 08 cải tiến LIC-02 theo quyết định chủ dự án ngày 26/11/2026.
 
 | STT | Hạng mục bảo mật | Trạng thái / quyết định |
 | --- | --- | --- |
@@ -90,6 +90,7 @@ GitHub: [Tidi6969](https://github.com/Tidi6969)
 | 5 | Ký số bộ bàn giao (SEC-03) | Giữ nguyên |
 | 6 | Chống sửa Add-in (SEC-AT) | V59 — đã triển khai; các ca chính Dtscr V121 / AutoCAD 2022 được chủ dự án xác nhận |
 | 7 | Chống lùi đồng hồ (SEC-07) | **Tạm dừng phát triển** — đã khảo sát, chưa code |
+| 8 | Machine Identity V2 (cải tiến LIC-02) | Đã chốt tối thiểu 2/3: SMBIOS UUID, System Serial Number, Mainboard Serial Number. Baseline V59; tiếp theo rà soát nguồn 08.2, chưa code/build/test. Chi tiết và nguồn tham khảo tại Plan STD-20. |
 
 **Quyết định:** giữ cơ chế kiểm tra thời hạn License hiện hành. Không bổ sung đồng hồ ảo, TPM, file trạng thái thời gian hoặc dịch vụ nền. Chỉ tiếp tục 07 khi chủ dự án yêu cầu.
 
