@@ -81,47 +81,34 @@ GitHub: [Tidi6969](https://github.com/Tidi6969)
 
 **Ngày cập nhật:** 26/11/2026
 **Baseline:** TidiDcad V55 — chủ dự án xác nhận chạy OK ("Oke 1 phát ăn luôn .", UserReportedWorking=YES).
-**Hệ tham chiếu:** Thales Sentinel LDK; lấy Sentinel SL làm chuẩn chính cho bản quyền phần mềm offline, Envelope làm chuẩn mục tiêu bảo vệ chương trình. Sentinel HL/CL, network và các tính năng thương mại chỉ là tham chiếu mở rộng, không phải yêu cầu triển khai mặc định. Không tuyên bố tương đương mức bảo mật của Sentinel.
+**Hệ tham chiếu:** Thales Sentinel LDK, chọn lọc Sentinel SL, Envelope Program Integrity Protection và V-Clock trong phạm vi 7 hạng mục đã chốt. Không đặt mục tiêu tương đương toàn bộ Sentinel.
 **Giai đoạn tiếp theo được chủ dự án chọn:** SEC-AT — Chống sửa Add-in (Program Integrity Protection).
 **Quản trị:** [STD-18 V1.2](https://github.com/Tidi6969/QuyUoc/blob/main/18_Karpathy_Guidelines_cho_AI_lap_trinh.md), [STD-20 V1.2](https://github.com/Tidi6969/QuyUoc/blob/main/20_Quy_uoc_ban_giao_key_Addin.md), STD-17.
 
-#### 1. Ma trận năng lực và tiến độ
+#### 1. Phạm vi bảo mật chính thức — 7 hạng mục
 
-Trạng thái: **Có** = có theo thiết kế/triển khai V55 đã báo cáo, không mặc định đã nghiệm thu riêng; **Một phần** = có nền tảng nhưng thiếu phạm vi/cơ chế hoặc bằng chứng; **Chưa có** = chưa triển khai theo thông tin dự án hiện tại; **Chưa xác minh** = thiếu bằng chứng để kết luận; **Ngoài phạm vi** = không triển khai theo định hướng hiện tại. Nghiệm thu tách khỏi trạng thái có chức năng. Các mục dưới đây căn cứ lịch sử bàn giao V55 và xác nhận của chủ dự án, chưa rà lại toàn bộ source/binary hoặc chạy Windows/CAD trong lần cập nhật roadmap.
+**Chốt phạm vi theo yêu cầu chủ dự án ngày 26/11/2026: chỉ duy trì và phát triển đúng 7 hạng mục dưới đây.** Sentinel LDK vẫn là chuẩn tham chiếu có chọn lọc, không phải mục tiêu sao chép toàn bộ năng lực. Mọi nghiên cứu khác chỉ là tài liệu tham khảo, không phải backlog bắt buộc.
 
-| ID | Năng lực tham chiếu Sentinel | DCAD V55 — hiện trạng | Trạng thái | Nghiệm thu / việc tiếp theo |
-|---|---|---|---|---|
-| LIC-01 | SL: cấp phép offline | DCAD_ID/dreq → LicenseccManager → Dcad.lic → Gate | Có | Xác nhận chung V55 OK; test luồng đầu-cuối riêng |
-| LIC-02 | SL: khóa máy | DeviceID từ SMBIOS UUID, Gate đối chiếu máy | Có | Đúng/sai máy, phần cứng thay đổi; không coi là chống clone |
-| LIC-03 | Feature và license terms | Tool/Feature XXX-YY, quyền và thời hạn riêng theo Feature | Có | Nghiệm thu một/nhiều Feature |
-| LIC-04 | License xác thực, chống sửa dữ liệu cấp phép | Licensecc/Gate V2/V3; xác minh chữ ký và từ chối quyền sai | Có | Test License hợp lệ, bị sửa, thiếu, hết hạn |
-| LIC-05 | Expiration / thời hạn | Kiểm tra thời gian UTC hệ thống | Có | Chưa đạt chuẩn chống lùi đồng hồ V-Clock |
-| MGT-01 | Product/Feature/Entitlement management | Catalog và công cụ quản lý cấp phép | Một phần | Củng cố lịch sử cấp, khách hàng, audit và vòng đời quyền |
-| MGT-02 | License update / renew | Có cấp License thay thế; luồng cập nhật/thu hồi/chuyển máy có kiểm soát chưa xác minh đầy đủ | Một phần | Quy trình cập nhật, gia hạn, phục hồi; chống replay |
-| SEC-01 | Licensing API enforcement | DcadLicenseGate V6, ABI 2, Policy 1; Add-in chỉ ALLOW mới chạy nghiệp vụ | Có | Nghiệm thu mọi entry point từng Add-in |
-| SEC-02 | Bảo vệ thành phần kiểm tra bản quyền | SEC06 xác minh chữ ký/hash Gate DLL trước nạp | Có | Nghiệm thu Gate thiếu/sai chữ ký/sai ABI, sai file |
-| SEC-03 | Xác thực quy trình phát hành (năng lực bổ sung DCAD) | V55 ký RSA-PSS bộ Integration sáu file, xác thực lúc tiếp nhận | Có | Ký/xác minh PFX thật và chống sửa gói cần chứng cứ Windows riêng; không phải chống sửa binary Add-in |
-| SEC-AT | Envelope Program Integrity Protection | Chưa có bảo vệ toàn vẹn chính ARX/DLL được nghiệm thu xuyên suốt | Chưa có | **Giai đoạn tiếp theo — đang khảo sát** |
-| SEC-05 | Envelope Plus / obfuscation, anti-reverse engineering | Chưa có cơ chế chuyên dụng tương đương | Chưa có | Sau SEC-AT; chỉ nghiên cứu khi cần, không làm chậm CAD |
-| SEC-06 | Bảo vệ mã đang chạy / chống can thiệp runtime | Gate kiểm tra file; không bảo đảm toàn vẹn mọi mã Add-in trong RAM | Một phần | Khảo sát độc lập sau bảo vệ file |
-| SEC-07 | V-Clock / time tamper | Phụ thuộc đồng hồ hệ thống; chưa có thời gian tin cậy tương đương | Chưa có | Thiết kế chống lùi thời gian, phục hồi hợp lệ, giới hạn offline |
-| SEC-08 | SL clone protection | Machine binding SMBIOS UUID; chưa có clone policy chuyên dụng | Một phần | Thử clone VM/snapshot, thay phần cứng và phục hồi |
-| SEC-09 | Secure storage / bảo vệ trạng thái | Có quản lý khóa SEC06 và dữ liệu SQLite; chống rollback trạng thái, backup/restore chưa nghiệm thu đầy đủ | Một phần | Bảo toàn ToolCatalog, danh tính, backup đã xác minh; không reset dữ liệu thật khi build |
-| SEC-10 | License revocation / rehost | Chưa có cơ chế thu hồi/chuyển quyền offline được xác minh đầy đủ | Chưa xác minh | Thiết kế vòng đời riêng; máy offline không nhận lệnh thu hồi tức thời |
-| EXT-01 | Network/concurrency/detachable license | Không triển khai | Ngoài phạm vi | Khi phát sinh nhu cầu |
-| EXT-02 | Cloud CL | Không triển khai | Ngoài phạm vi | Giữ offline |
-| EXT-03 | HL hardware dongle | Không triển khai | Ngoài phạm vi | Không dùng USB theo định hướng đã duyệt |
-| EXT-04 | Native/.NET protection và triển khai đa host | Hợp đồng được khảo sát native C++ AutoCAD 2022 x64; danh mục có thêm CAD nhưng chưa xác minh hợp đồng tương ứng | Một phần | AutoCAD 2025, GstarCAD 2027, C# từng hợp đồng riêng |
+| ID hiện hành | Hạng mục | Quyết định | Hiện trạng / việc cần làm |
+|---|---|---|---|
+| LIC-04 | Chữ ký số License | Giữ nguyên | Licensecc/Gate V2/V3; xác minh chữ ký, từ chối License không hợp lệ |
+| LIC-02 | Khóa bản quyền theo máy | Giữ nguyên | DeviceID từ SMBIOS UUID; Gate đối chiếu máy; không mở rộng chống clone chuyên sâu |
+| LIC-03 | Phân quyền Feature | Giữ nguyên | Tool/Feature XXX-YY, quyền và thời hạn riêng theo Feature |
+| SEC-02 | Chống thay thế Gate | Giữ nguyên | SEC06 xác minh chữ ký/hash Gate DLL trước khi nạp |
+| SEC-03 | Ký số bộ bàn giao | Giữ nguyên | V55 ký RSA-PSS Integration sáu file, xác thực khi tiếp nhận |
+| SEC-AT | Chống sửa Add-in | Cần phát triển — ưu tiên hiện tại | Xác minh thành phẩm chính thức, cưỡng chế kiểm tra đáng tin cậy, giữ nghiệp vụ CAD |
+| SEC-07 | Chống lùi đồng hồ | Cần phát triển — tiếp theo | Bảo vệ thời hạn License offline; nghiên cứu V-Clock, cơ chế phát hiện lùi thời gian và phục hồi hợp lệ; nêu rõ giới hạn |
 
-**Bằng chứng hiện tại:** UserReportedWorking=YES cho V55 ngày 26/11/2026. MSVC build log, ký/xác minh bằng PFX thực tế, Build/APPLOAD/Runtime của DJoin và Dtscr theo bộ bàn giao V55 vẫn NotVerified theo chứng cứ độc lập. Không dùng xác nhận chung hoặc kiểm tra Gate để đánh dấu SEC-AT PASS. Không dùng tỷ lệ phần trăm tương đương Sentinel.
+**Bằng chứng hiện tại:** UserReportedWorking=YES cho V55 ngày 26/11/2026. MSVC build log, ký/xác minh bằng PFX thực tế, Build/APPLOAD/Runtime của DJoin và Dtscr theo bộ bàn giao V55 vẫn NotVerified theo chứng cứ độc lập. Giữ nguyên không có nghĩa mọi ca đã được nghiệm thu. Hai hạng mục mới chưa triển khai. Không dùng tỷ lệ phần trăm tương đương Sentinel.
+
+**Ngoài phạm vi phát triển:** chống dịch ngược chuyên sâu, obfuscation, anti-debug/anti-trace, code virtualization, mã hóa mã thực thi, Windowed Decryption, chống can thiệp RAM chuyên sâu, chống clone chuyên dụng, mở rộng quản trị vòng đời License, network/concurrency, cloud và USB dongle. Không bổ sung các hạng mục này nếu chưa có yêu cầu mới. Các công việc bảo toàn dữ liệu/khóa, kiểm thử, tương thích CAD đã duyệt và bảo trì chức năng hiện có vẫn thực hiện theo quy ước; không biến thành dự án bảo mật mới.
 
 #### 2. Thứ tự phát triển
 
-- Giai đoạn 1 — Nền tảng Licensecc, cấp quyền máy/Feature, SEC06 bảo vệ Gate, ký số bộ bàn giao: đã triển khai theo báo cáo; tiếp tục thu chứng cứ nghiệm thu.
-- Giai đoạn 2 — **SEC-AT: chống sửa Add-in** (ưu tiên hiện tại, chủ dự án chọn).
-- Giai đoạn 3 — Thời gian tin cậy và chống clone; bảo toàn dữ liệu/khóa là công việc song song xuyên suốt.
-- Giai đoạn 4 — Bảo vệ mã chuyên sâu, hoàn thiện đa host và C# theo nhu cầu.
-- Giai đoạn 5 — Vòng đời quyền, audit, gia hạn/thu hồi. Network/Cloud/USB chỉ xem xét theo yêu cầu riêng.
+1. **Giữ nguyên 5 hạng mục hiện có của V55**, nghiệm thu hồi quy và tích hợp theo phạm vi đã duyệt.
+2. **SEC-AT — Chống sửa Add-in:** giai đoạn đang nghiên cứu; ưu tiên hiện tại. Thử DJoin native AutoCAD 2022 trước.
+3. **SEC-07 — Chống lùi đồng hồ:** chỉ triển khai sau khi hoàn thành/được duyệt giai đoạn SEC-AT; nghiên cứu cơ chế chống gian lận thời hạn và phục hồi phù hợp offline.
+4. Nghiệm thu cả bảy hạng mục và duy trì hệ thống ổn định. Không tự mở rộng sang công nghệ bảo mật khác.
 
 #### 3. SEC-AT — Chống sửa Add-in: phạm vi khảo sát
 
@@ -134,7 +121,7 @@ Phân biệt ba đối tượng: Integration.zip (đã ký V55), Gate DLL (SEC06
 2. Ưu tiên xác minh bằng thành phần độc lập đã tin cậy trước khi nạp nếu host/quy trình triển khai hỗ trợ. Bảo toàn APPLOAD và cơ chế nạp CAD hợp lệ; nghiên cứu chính sách nạp và chữ ký Autodesk, không tự thay cấu hình Windows/CAD hoặc yêu cầu thêm phần mềm.
 3. Nếu chỉ có kiểm tra trong Add-in/Gate sau khi nạp, phải ghi rõ hạn chế: kiểm tra nội bộ có thể bị sửa cùng mã và không bảo đảm chặn trước thực thi; không gọi đó là bảo vệ đầy đủ. Chữ ký trên đĩa không chứng minh toàn vẹn RAM; chữ ký số cũng không thay cho cơ chế cưỡng chế xác minh.
 4. Thử nghiệm DJoin native AutoCAD 2022 x64 trước, dùng đúng baseline được xác nhận và bộ V55. Giữ Licensecc, Gate, Tool/Feature ID, License hiện hành, nghiệp vụ và Build_All gốc; không thêm lại ApprovedGateKeyId, PowerShell preflight, ExecutionPolicy hoặc phụ thuộc không cần thiết. Không mở rộng target/schema/Gate ABI nếu chưa duyệt tác động.
-5. Tách giai đoạn bảo vệ file khỏi bảo vệ mã trong bộ nhớ, chống dịch ngược và chống debug. Chưa triển khai chống sửa runtime chuyên sâu trong giai đoạn đầu.
+5. Tách giai đoạn bảo vệ file khỏi bảo vệ mã trong bộ nhớ, chống dịch ngược và chống debug. Chống sửa runtime chuyên sâu và chống dịch ngược không thuộc phạm vi phát triển hiện hành.
 
 ##### Cổng nghiệm thu dự kiến (chưa chạy)
 
@@ -156,6 +143,8 @@ Mỗi ca ghi Expected/Actual/Status/Host/Evidence theo AI-14–AI-18. Không s�
 **Đã được chủ dự án duyệt ngày 26/11/2026.** Lấy tài liệu công khai của Sentinel LDK Envelope (ưu tiên Windows V3 Engine cho native ARX) làm chuẩn kiến trúc, năng lực và tiêu chí đánh giá. Tìm các dự án mã nguồn mở, đặc tả và API hệ điều hành tương ứng từng năng lực để phát triển độc lập; không sao chép mã hay suy đoán thuật toán độc quyền của Thales. Tạm gọi lớp bảo vệ mục tiêu là DcadEnvelope, chưa quyết định cấu trúc đóng gói hoặc tạo ứng dụng/EXE riêng. Giữ V55, Licensecc, SEC06, quy trình cấp phép offline và STD-20 hiện hành.
 
 ##### Ma trận ứng viên mã nguồn và công nghệ
+
+Danh sách nghiên cứu trước khi thu hẹp phạm vi được giữ lại làm căn cứ lịch sử. Chỉ đánh giá các ứng viên trực tiếp phục vụ SEC-AT và SEC-07; REF-03 đến REF-08 không phải nhiệm vụ triển khai (REF-05 chỉ có thể tham khảo nguyên lý toàn vẹn file khi cần, không nghiên cứu chống can thiệp RAM chuyên sâu). REF-09 giữ nguyên; REF-01, REF-02, REF-10 là ứng viên SEC-AT, chưa mặc định phải dùng. Quy trình 12 bước chỉ áp dụng cho phạm vi đã duyệt.
 
 | Mã nghiên cứu | Năng lực mục tiêu | Nguồn ứng viên | Vai trò, giới hạn | Trạng thái |
 |---|---|---|---|---|
@@ -191,7 +180,7 @@ Các mã REF chỉ dùng theo dõi nguồn nghiên cứu, không thay ID năng l
 | 11 | Đối chiếu với chuẩn Sentinel | Báo đạt/một phần/chưa đạt theo tiêu chí có chứng cứ; ghi giới hạn thực tế, không tự tuyên bố tương đương |
 | 12 | Nghiệm thu và cập nhật tiến độ | Chủ dự án xác nhận; cập nhật trực tiếp mục này trong README DCAD theo STD-17, không tạo file roadmap riêng |
 
-**Nguyên tắc thực hiện:** kế thừa nguồn tốt đã được kiểm chứng; triển khai theo đặc tả và API chuẩn; không tự sáng tạo thuật toán mật mã; không coi mã hóa, ký số hay biến đổi mã đơn lẻ là hệ thống Anti-Tamper hoàn chỉnh. Nếu không tìm được ứng viên đủ tốt hoặc không thể xác minh baseline/giấy phép, ghi rõ blocker và tiếp tục nghiên cứu trước khi triển khai. Các giai đoạn bảo vệ file, bảo vệ điểm kiểm tra bản quyền, bảo vệ mã và bộ nhớ phải có tiêu chí riêng. Không được tự ý làm lại Gate, cấp License, thay chính sách Windows/CAD hoặc mở rộng ngoài phạm vi.
+**Nguyên tắc thực hiện:** kế thừa nguồn tốt đã được kiểm chứng; triển khai theo đặc tả và API chuẩn; không tự sáng tạo thuật toán mật mã; không coi mã hóa, ký số hay biến đổi mã đơn lẻ là hệ thống Anti-Tamper hoàn chỉnh. Nếu không tìm được ứng viên đủ tốt hoặc không thể xác minh baseline/giấy phép, ghi rõ blocker và tiếp tục nghiên cứu trước khi triển khai. Chỉ đánh giá bảo vệ file và hiệu lực cưỡng chế kiểm tra trong phạm vi SEC-AT; không mở rộng thành bảo vệ mã/bộ nhớ chuyên sâu. Không được tự ý làm lại Gate, cấp License, thay chính sách Windows/CAD hoặc mở rộng ngoài phạm vi.
 
 **Tiến độ hiện tại:** phương pháp nghiên cứu đã được duyệt; danh sách ứng viên sơ bộ đã lập. Chưa khóa phiên bản upstream, chưa build/test nguyên bản, chưa xác nhận giấy phép theo commit, chưa chọn dependency cuối cùng, chưa thiết kế chi tiết hoặc code SEC-AT. Ưu tiên tiếp theo: khảo sát SEC-AT theo bước 01–04, sau đó build/test ứng viên cần thiết. Tất cả cổng chưa có bằng chứng giữ NotVerified.
 
@@ -216,3 +205,4 @@ Các mã REF chỉ dùng theo dõi nguồn nghiên cứu, không thay ID năng l
 
 - 26/11/2026: V55 được chủ dự án xác nhận chạy OK; roadmap lấy Sentinel LDK làm chuẩn; chọn chống sửa Add-in làm giai đoạn tiếp theo. Chưa code giai đoạn SEC-AT. Giữ nguyên snapshot V55 và các quy ước đang hiệu lực.
 - 26/11/2026: Chủ dự án duyệt phương pháp nghiên cứu SEC-AT: Sentinel Envelope là chuẩn tham chiếu, các thành phần mở/tiêu chuẩn là cơ sở phát triển độc lập; thêm ma trận REF-01–REF-10 và quy trình 12 bước ngay trong README. Chưa chọn dependency cuối, chưa code, chưa tăng version.
+- 26/11/2026: Chủ dự án chốt chỉ 7 hạng mục bảo mật: giữ nguyên chữ ký License, khóa máy, Feature, chống thay Gate và ký bộ bàn giao; phát triển chống sửa Add-in trước, chống lùi đồng hồ sau. Các năng lực bảo mật khác ngoài phạm vi. Giữ tài liệu nghiên cứu làm tham khảo, không phát triển thêm khi chưa được giao. Chỉ cập nhật README, không sửa code hoặc tăng version.
