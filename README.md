@@ -75,32 +75,24 @@ GitHub: [Tidi6969](https://github.com/Tidi6969)
 | Ứng dụng | Phiên bản nguồn/toolkit | Repository | ZIP | Trạng thái |
 | --- | --- | --- | --- | --- |
 | DfreeCad | **V12-update** — sửa build tăng dần và cập nhật DProgram an toàn | [Tidi6969/DfreeCad](https://github.com/Tidi6969/DfreeCad) | [DfreeCad-V12-Update.zip](https://github.com/Tidi6969/DfreeCad/releases/download/V12-update/DfreeCad-V12-Update.zip) | **Mới nhất đã lưu: V12 (11/11/2026)** — ZIP cập nhật 5.699 byte, SHA256 `e168d17b2545b4f6a6c46e5e64a6a84cc7d28dd502cafdc0dc4509d1a9469979`. **Nguồn đầy đủ V9** ([ZIP V9](https://github.com/Tidi6969/DfreeCad/releases/download/V9-fullsource/DfreeCad-V9-FullSource-BuildKit.zip)) + cập nhật V10 (compiler) và V11 (Measurement). Log người dùng `Build-20261111-160857.log`: MSVC 14.30+NMake PASS; V10 từ chối `DProgram\DfreeCad` có sẵn trước CMake. V12 tạo Build-V12.ps1, giữ build cache, staging riêng; sau khi kiểm tra EXE mới thành công, sao lưu DProgram cũ và thay bản mới. **QA áp dụng nguồn/ZIP và mô phỏng thay cũ, giữ backup, từ chối staging thiếu file=PASS** ([Windows CI](https://github.com/Tidi6969/DfreeCad/actions/runs/42994081641)); **rollback khi lỗi ở giữa bước chuyển bản=NotVerified**; **Build thực tế/Runtime Measurement=NotVerified**, **nghiệm thu người dùng=NotVerified**. Gói cập nhật nguồn, chưa có EXE được xác nhận. |
-| TidiDcad | **V55** — baseline được chủ dự án xác nhận OK ngày 26/11/2026 (`UserReportedWorking=YES`) | Chưa xác định kho module riêng | Chưa xác minh ZIP trên GitHub | Giữ nguyên V55; đang nghiên cứu chống sửa Add-in (SEC-AT), sau đó chống lùi đồng hồ (SEC-07). Chưa tạo V56. Xem tổng thể hướng phát triển bên dưới. |
+| TidiDcad | **V59** — baseline duy trì, chủ dự án xác nhận build OK 26/11/2026 | Chưa xác định kho module riêng | Chưa xác minh ZIP trên GitHub | SEC-AT đã triển khai, kiểm nghiệm các ca chính với Dtscr V121 / AutoCAD 2022; SEC-07 **tạm dừng phát triển**. |
 
 ### Tổng thể hướng phát triển thực tế — TidiDcad
 
-**Baseline: V55** — chủ dự án xác nhận chạy OK ngày 26/11/2026. Giữ nguyên năm hạng mục hiện có, chỉ phát triển thêm hai hạng mục dưới đây.
+**Baseline hiện tại: V59** — giữ nguyên năm hạng mục bảo mật từ V55, bổ sung chống sửa Add-in; duy trì sáu hạng mục, tạm dừng hạng mục 07 theo quyết định chủ dự án ngày 26/11/2026.
 
 | STT | Hạng mục bảo mật | Trạng thái / quyết định |
 | --- | --- | --- |
-| 1 | Chữ ký số License (LIC-04) | V55 — giữ nguyên |
-| 2 | Khóa bản quyền theo máy (LIC-02) | V55 — giữ nguyên |
-| 3 | Phân quyền Feature (LIC-03) | V55 — giữ nguyên |
-| 4 | Chống thay thế Gate (SEC-02) | V55 — giữ nguyên |
-| 5 | Ký số bộ bàn giao (SEC-03) | V55 — giữ nguyên |
-| 6 | Chống sửa Add-in (SEC-AT) | Đang nghiên cứu — ưu tiên hiện tại |
-| 7 | Chống lùi đồng hồ (SEC-07) | Chưa bắt đầu — thực hiện sau SEC-AT |
+| 1 | Chữ ký số License (LIC-04) | Giữ nguyên |
+| 2 | Khóa bản quyền theo máy (LIC-02) | Giữ nguyên |
+| 3 | Phân quyền Feature (LIC-03) | Giữ nguyên |
+| 4 | Chống thay thế Gate (SEC-02) | Giữ nguyên |
+| 5 | Ký số bộ bàn giao (SEC-03) | Giữ nguyên |
+| 6 | Chống sửa Add-in (SEC-AT) | V59 — đã triển khai; các ca chính Dtscr V121 / AutoCAD 2022 được chủ dự án xác nhận |
+| 7 | Chống lùi đồng hồ (SEC-07) | **Tạm dừng phát triển** — đã khảo sát, chưa code |
 
-```text
-TidiDcad V55 — giữ nguyên 5 hạng mục hiện có
-    ↓
-SEC-AT — Chống sửa Add-in (đang nghiên cứu)
-    ↓
-SEC-07 — Chống lùi đồng hồ (tiếp theo)
-    ↓
-Nghiệm thu toàn bộ 7 hạng mục
-```
+**Quyết định:** giữ cơ chế kiểm tra thời hạn License hiện hành. Không bổ sung đồng hồ ảo, TPM, file trạng thái thời gian hoặc dịch vụ nền. Chỉ tiếp tục 07 khi chủ dự án yêu cầu.
 
-**Phạm vi:** chỉ duy trì và phát triển đúng bảy hạng mục đã chốt; không tự mở rộng. Tuân thủ [quy ước 18](https://github.com/Tidi6969/QuyUoc/blob/main/18_Karpathy_Guidelines_cho_AI_lap_trinh.md) và [quy ước 20](https://github.com/Tidi6969/QuyUoc/blob/main/20_Quy_uoc_ban_giao_key_Addin.md) hiện hành.
+**Trạng thái xác minh:** chủ dự án báo V59 build OK, Dtscr V121 ký/chạy OK, ARX chưa ký bị từ chối ADDIN_PE_INVALID, ARX bị sửa bị từ chối ADDIN_SIGNATURE_INVALID, khôi phục bản gốc OK. Ca build/ký lại giữ Gate/License chưa có log riêng; không suy diễn nghiệm thu mọi host hoặc chống sửa tuyệt đối. ZIP V59/V121 trên GitHub chưa xác minh. Không sửa code hay tăng phiên bản trong lần cập nhật trạng thái này.
 
-**Trạng thái xác minh:** V55 được chủ dự án xác nhận chạy OK; ZIP nguồn trên GitHub, log build MSVC, kiểm thử ký/xác minh PFX và Build/APPLOAD/Runtime DJoin/Dtscr chưa được xác minh độc lập. SEC-AT chưa chốt thiết kế kỹ thuật, chưa code, chưa nghiệm thu. SEC-07 chưa triển khai.
+**Plan chính thức:** [Quy ước 20](https://github.com/Tidi6969/QuyUoc/blob/main/20_Quy_uoc_ban_giao_key_Addin.md). Tuân thủ [quy ước 18](https://github.com/Tidi6969/QuyUoc/blob/main/18_Karpathy_Guidelines_cho_AI_lap_trinh.md).
