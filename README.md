@@ -75,167 +75,32 @@ GitHub: [Tidi6969](https://github.com/Tidi6969)
 | Ứng dụng | Phiên bản nguồn/toolkit | Repository | ZIP | Trạng thái |
 | --- | --- | --- | --- | --- |
 | DfreeCad | **V12-update** — sửa build tăng dần và cập nhật DProgram an toàn | [Tidi6969/DfreeCad](https://github.com/Tidi6969/DfreeCad) | [DfreeCad-V12-Update.zip](https://github.com/Tidi6969/DfreeCad/releases/download/V12-update/DfreeCad-V12-Update.zip) | **Mới nhất đã lưu: V12 (11/11/2026)** — ZIP cập nhật 5.699 byte, SHA256 `e168d17b2545b4f6a6c46e5e64a6a84cc7d28dd502cafdc0dc4509d1a9469979`. **Nguồn đầy đủ V9** ([ZIP V9](https://github.com/Tidi6969/DfreeCad/releases/download/V9-fullsource/DfreeCad-V9-FullSource-BuildKit.zip)) + cập nhật V10 (compiler) và V11 (Measurement). Log người dùng `Build-20261111-160857.log`: MSVC 14.30+NMake PASS; V10 từ chối `DProgram\DfreeCad` có sẵn trước CMake. V12 tạo Build-V12.ps1, giữ build cache, staging riêng; sau khi kiểm tra EXE mới thành công, sao lưu DProgram cũ và thay bản mới. **QA áp dụng nguồn/ZIP và mô phỏng thay cũ, giữ backup, từ chối staging thiếu file=PASS** ([Windows CI](https://github.com/Tidi6969/DfreeCad/actions/runs/42994081641)); **rollback khi lỗi ở giữa bước chuyển bản=NotVerified**; **Build thực tế/Runtime Measurement=NotVerified**, **nghiệm thu người dùng=NotVerified**. Gói cập nhật nguồn, chưa có EXE được xác nhận. |
-| TidiDcad | **V55** — baseline được chủ dự án xác nhận OK | Chưa xác định kho module riêng trong danh sách kho được cấp quyền | Chưa xác minh ZIP trên GitHub | **26/11/2026: chủ dự án phản hồi “Oke 1 phát ăn luôn .”** (`UserReportedWorking=YES`), sau bàn giao V55. Baseline phát triển tiếp: V55 (từ V54). Ký số Integration RSA-PSS, xác thực khi tiếp nhận; bỏ phê duyệt máy build và preflight phê duyệt PowerShell theo [STD-20 V1.2](https://github.com/Tidi6969/QuyUoc/blob/main/20_Quy_uoc_ban_giao_key_Addin.md), giữ sáu file, Gate/Licensecc. Build log MSVC, ca ký/xác minh PFX thực tế, kiểm thử từng chức năng Windows và nghiệm thu DJoin/Dtscr trên CAD: `NotVerified` theo chứng cứ độc lập; phạm vi hợp đồng tích hợp native C++ AutoCAD 2022 x64. Không coi xác nhận chung là PASS mọi ca. Giai đoạn phát triển tiếp theo: **chống sửa Add-in (SEC-AT)**, lấy Sentinel LDK làm chuẩn năng lực; nghiệm thu Integration mới với DJoin/Dtscr vẫn là cổng kiểm chứng. Xem bảng tiến độ bảo mật TidiDcad ngay bên dưới.. Chỉ ghi nhận tiến độ; không sửa source, không tạo V56, không upload ZIP. |
+| TidiDcad | **V55** — baseline được chủ dự án xác nhận OK ngày 26/11/2026 (`UserReportedWorking=YES`) | Chưa xác định kho module riêng | Chưa xác minh ZIP trên GitHub | Giữ nguyên V55; đang nghiên cứu chống sửa Add-in (SEC-AT), sau đó chống lùi đồng hồ (SEC-07). Chưa tạo V56. Xem tổng thể hướng phát triển bên dưới. |
 
-### Tiến độ bảo mật TidiDcad — Sentinel LDK
+### Tổng thể hướng phát triển thực tế — TidiDcad
 
-**Ngày cập nhật:** 26/11/2026
-**Baseline:** TidiDcad V55 — chủ dự án xác nhận chạy OK ("Oke 1 phát ăn luôn .", UserReportedWorking=YES).
-**Hệ tham chiếu:** Thales Sentinel LDK, chọn lọc Sentinel SL, Envelope Program Integrity Protection và V-Clock trong phạm vi 7 hạng mục đã chốt. Không đặt mục tiêu tương đương toàn bộ Sentinel.
-**Giai đoạn tiếp theo được chủ dự án chọn:** SEC-AT — Chống sửa Add-in (Program Integrity Protection).
-**Quản trị:** [STD-18 V1.2](https://github.com/Tidi6969/QuyUoc/blob/main/18_Karpathy_Guidelines_cho_AI_lap_trinh.md), [STD-20 V1.2](https://github.com/Tidi6969/QuyUoc/blob/main/20_Quy_uoc_ban_giao_key_Addin.md), STD-17.
+**Baseline: V55** — chủ dự án xác nhận chạy OK ngày 26/11/2026. Giữ nguyên năm hạng mục hiện có, chỉ phát triển thêm hai hạng mục dưới đây.
 
-#### 1. Phạm vi bảo mật chính thức — 7 hạng mục
+| STT | Hạng mục bảo mật | Trạng thái / quyết định |
+| --- | --- | --- |
+| 1 | Chữ ký số License (LIC-04) | V55 — giữ nguyên |
+| 2 | Khóa bản quyền theo máy (LIC-02) | V55 — giữ nguyên |
+| 3 | Phân quyền Feature (LIC-03) | V55 — giữ nguyên |
+| 4 | Chống thay thế Gate (SEC-02) | V55 — giữ nguyên |
+| 5 | Ký số bộ bàn giao (SEC-03) | V55 — giữ nguyên |
+| 6 | Chống sửa Add-in (SEC-AT) | Đang nghiên cứu — ưu tiên hiện tại |
+| 7 | Chống lùi đồng hồ (SEC-07) | Chưa bắt đầu — thực hiện sau SEC-AT |
 
-**Chốt phạm vi theo yêu cầu chủ dự án ngày 26/11/2026: chỉ duy trì và phát triển đúng 7 hạng mục dưới đây.** Sentinel LDK vẫn là chuẩn tham chiếu có chọn lọc, không phải mục tiêu sao chép toàn bộ năng lực. Mọi nghiên cứu khác chỉ là tài liệu tham khảo, không phải backlog bắt buộc.
+```text
+TidiDcad V55 — giữ nguyên 5 hạng mục hiện có
+    ↓
+SEC-AT — Chống sửa Add-in (đang nghiên cứu)
+    ↓
+SEC-07 — Chống lùi đồng hồ (tiếp theo)
+    ↓
+Nghiệm thu toàn bộ 7 hạng mục
+```
 
-| ID hiện hành | Hạng mục | Quyết định | Hiện trạng / việc cần làm |
-|---|---|---|---|
-| LIC-04 | Chữ ký số License | Giữ nguyên | Licensecc/Gate V2/V3; xác minh chữ ký, từ chối License không hợp lệ |
-| LIC-02 | Khóa bản quyền theo máy | Giữ nguyên | DeviceID từ SMBIOS UUID; Gate đối chiếu máy; không mở rộng chống clone chuyên sâu |
-| LIC-03 | Phân quyền Feature | Giữ nguyên | Tool/Feature XXX-YY, quyền và thời hạn riêng theo Feature |
-| SEC-02 | Chống thay thế Gate | Giữ nguyên | SEC06 xác minh chữ ký/hash Gate DLL trước khi nạp |
-| SEC-03 | Ký số bộ bàn giao | Giữ nguyên | V55 ký RSA-PSS Integration sáu file, xác thực khi tiếp nhận |
-| SEC-AT | Chống sửa Add-in | Cần phát triển — ưu tiên hiện tại | Xác minh thành phẩm chính thức, cưỡng chế kiểm tra đáng tin cậy, giữ nghiệp vụ CAD |
-| SEC-07 | Chống lùi đồng hồ | Cần phát triển — tiếp theo | Bảo vệ thời hạn License offline; nghiên cứu V-Clock, cơ chế phát hiện lùi thời gian và phục hồi hợp lệ; nêu rõ giới hạn |
+**Phạm vi:** chỉ duy trì và phát triển đúng bảy hạng mục đã chốt; không tự mở rộng. Tuân thủ [quy ước 18](https://github.com/Tidi6969/QuyUoc/blob/main/18_Karpathy_Guidelines_cho_AI_lap_trinh.md) và [quy ước 20](https://github.com/Tidi6969/QuyUoc/blob/main/20_Quy_uoc_ban_giao_key_Addin.md) hiện hành.
 
-**Bằng chứng hiện tại:** UserReportedWorking=YES cho V55 ngày 26/11/2026. MSVC build log, ký/xác minh bằng PFX thực tế, Build/APPLOAD/Runtime của DJoin và Dtscr theo bộ bàn giao V55 vẫn NotVerified theo chứng cứ độc lập. Giữ nguyên không có nghĩa mọi ca đã được nghiệm thu. Hai hạng mục mới chưa triển khai. Không dùng tỷ lệ phần trăm tương đương Sentinel.
-
-**Ngoài phạm vi phát triển:** chống dịch ngược chuyên sâu, obfuscation, anti-debug/anti-trace, code virtualization, mã hóa mã thực thi, Windowed Decryption, chống can thiệp RAM chuyên sâu, chống clone chuyên dụng, mở rộng quản trị vòng đời License, network/concurrency, cloud và USB dongle. Không bổ sung các hạng mục này nếu chưa có yêu cầu mới. Các công việc bảo toàn dữ liệu/khóa, kiểm thử, tương thích CAD đã duyệt và bảo trì chức năng hiện có vẫn thực hiện theo quy ước; không biến thành dự án bảo mật mới.
-
-#### 2. Thứ tự phát triển
-
-1. **Giữ nguyên 5 hạng mục hiện có của V55**, nghiệm thu hồi quy và tích hợp theo phạm vi đã duyệt.
-2. **SEC-AT — Chống sửa Add-in:** giai đoạn đang nghiên cứu; ưu tiên hiện tại. Thử DJoin native AutoCAD 2022 trước.
-3. **SEC-07 — Chống lùi đồng hồ:** chỉ triển khai sau khi hoàn thành/được duyệt giai đoạn SEC-AT; nghiên cứu cơ chế chống gian lận thời hạn và phục hồi phù hợp offline.
-4. Nghiệm thu cả bảy hạng mục và duy trì hệ thống ổn định. Không tự mở rộng sang công nghệ bảo mật khác.
-
-#### 3. SEC-AT — Chống sửa Add-in: phạm vi khảo sát
-
-**Mục tiêu:** phân biệt file Add-in chính thức đã phát hành với file bị sửa/thay thế; không cho phép nghiệp vụ được bảo vệ nếu kiểm tra toàn vẹn thất bại. Sentinel Envelope Program Integrity Protection là chuẩn năng lực mục tiêu, không sao chép công nghệ độc quyền.
-
-Phân biệt ba đối tượng: Integration.zip (đã ký V55), Gate DLL (SEC06), chính thành phẩm Add-in (ARX/GRX/DLL — mục mới). Không nhầm chữ ký ZIP với chữ ký thành phẩm.
-
-##### Phương án ưu tiên — ký số Add-in, xác minh hai chiều với Gate
-
-**Cập nhật định hướng 26/11/2026:** ưu tiên bảo vệ tính toàn vẹn của thành phẩm bằng chữ ký số, tận dụng hệ thống V55. Đây là phương án nghiên cứu/thiết kế được yêu cầu ghi vào lưu trình, chưa phải thiết kế kỹ thuật cuối cùng hoặc xác nhận đã triển khai. Không phát triển bộ Envelope độc lập, mã hóa mã, obfuscation hoặc đổi compiler trong phạm vi này.
-
-- Chiều hiện có: Add-in xác minh Gate DLL theo SEC06 trước khi sử dụng Gate; bảo toàn cơ chế này.
-- Chiều bổ sung: Gate xác minh danh tính phát hành và tính toàn vẹn Add-in thực tế trước khi trả quyền thực hiện nghiệp vụ. Kiểm tra chữ ký cùng Tool/Feature/host/version theo hợp đồng tin cậy, sau đó áp dụng các kiểm tra License, mã máy, quyền Feature và thời hạn hiện hành.
-- Ưu tiên chữ ký Authenticode nhúng vào PE (ARX/DLL), xác minh qua API chuẩn Windows như WinVerifyTrust và đối chiếu danh tính ký DCAD được tin cậy độc lập. Không chỉ kiểm tra có chữ ký hoặc chữ ký hợp lệ của bất kỳ nhà phát hành nào. Cần xác minh khả năng ký ARX, chứng thư, chính sách trust/timestamp/revocation trong môi trường offline, phạm vi byte được Authenticode bảo vệ và khả năng tương thích CAD. Không mặc định danh tính SEC06 hiện tại là chứng thư Authenticode phù hợp.
-- Phương án dự phòng nếu chữ ký nhúng không phù hợp: manifest tách riêng (ví dụ DJoin.release) có chữ ký RSA-PSS, bao phủ SHA-256 toàn bộ binary cuối cùng cùng Tool/Feature/host/version; nghiên cứu dùng lại danh tính SEC06 với miền chữ ký riêng. Không tự tạo thêm khóa hoặc mặc định phát hành thêm file trước khi duyệt.
-- Cần có cách xác định đúng module Add-in đang yêu cầu Gate kiểm tra; không chỉ tin đường dẫn, Tool/Feature hoặc metadata do caller tự khai. Đánh giá liên kết giữa file đã xác minh và module thực tế, tình huống đổi file trong quá trình nạp/kiểm tra, khả năng dùng nhầm thành phẩm hợp lệ của tool khác. Ký số không tự chứng minh danh tính caller.
-- **Ranh giới cưỡng chế:** kiểm tra hai chiều trong cùng tiến trình CAD chỉ bảo vệ đường nghiệp vụ thực sự đi qua kiểm tra; mã Add-in đã sửa có thể không gọi Gate. Chữ ký trên đĩa không chứng minh toàn vẹn RAM. Muốn bảo đảm chặn trước thực thi phải có cơ chế xác minh độc lập đáng tin cậy và thực sự bắt buộc. Khảo sát host/CAD hoặc chính sách Windows, nhưng không tự thay cấu hình khách hàng; SECURELOAD kiểm soát vị trí tin cậy, không mặc định cưỡng chế chữ ký riêng của DCAD. Nếu không đạt ranh giới bảo vệ mong muốn, ghi blocker, trình chủ dự án lựa chọn phạm vi bảo vệ thực tế; không nghiệm thu chống sửa hoàn chỉnh dựa vào chữ ký hoặc kiểm tra Gate đơn thuần.
-- Giữ Licensecc, DeviceID, Tool/Feature ID, cấu trúc License và nghiệp vụ CAD. Ưu tiên không thêm EXE, không thêm khóa riêng, không thêm dependency tại máy khách, không yêu cầu Internet. Chỉ thay TidiDcad, Gate, GateClient, Integration và bước build/phát hành khi phân tích tác động chứng minh cần thiết; thay đổi ABI/contract phải được duyệt, có phương án tương thích và cập nhật STD-20 nếu thực sự cần. Không đưa lại ApprovedGateKeyId, PowerShell preflight hay thay ExecutionPolicy.
-
-##### Lưu trình phát hành và sử dụng dự kiến
-
-| Bước | Thành phần | Công việc / điều kiện |
-|---|---|---|
-| P01 | Build_All hiện hành | Build Add-in nguyên bản từ baseline được duyệt, hoàn tất mọi bước biến đổi binary |
-| P02 | TidiDcad / đơn vị phát hành | Ký số thành phẩm cuối bằng danh tính DCAD phù hợp đã xác minh; không đưa khóa riêng vào Add-in hoặc Integration |
-| P03 | Kiểm tra phát hành | Xác minh chữ ký, danh tính, nội dung được bảo vệ và hợp đồng; lỗi thì dừng, giữ bản phát hành cũ |
-| P04 | Bàn giao | Phát hành Add-in đã ký; ưu tiên một file nếu phương án Authenticode đạt yêu cầu |
-| R01 | CAD / cơ chế nạp | Xác minh trước nạp nếu có cơ chế cưỡng chế được duyệt; nếu không, ghi rõ giới hạn |
-| R02 | Add-in / GateClient | Giữ kiểm tra Gate theo SEC06, xác định module thực tế theo hợp đồng được duyệt |
-| R03 | Gate | Kiểm tra Add-in, chữ ký/danh tính/nội dung và Tool/Feature/host/version; lỗi thì DENY |
-| R04 | Gate | Kiểm tra License, máy, quyền Feature, thời hạn; chỉ ALLOW khi toàn bộ kiểm tra bắt buộc đạt |
-| R05 | Add-in | Chỉ thực hiện nghiệp vụ được bảo vệ sau ALLOW; kiểm thử mọi entry point có liên quan |
-
-##### Lưu trình thực hiện SEC-AT hiện tại
-
-| Bước | Công việc | Tiến độ / cổng quyết định |
-|---|---|---|
-| S01 | Chốt phạm vi 7 hạng mục, định hướng ký số + kiểm tra hai chiều | Đã ghi nhận; chưa duyệt thiết kế cuối |
-| S02 | Đọc nguồn V55, Gate, GateClient, hợp đồng STD-20 và source/build DJoin đúng baseline | Chưa thực hiện; thiếu baseline thì dừng triển khai |
-| S03 | Đối chiếu Authenticode/WinVerifyTrust, chứng thư SEC06, định dạng PE/ARX, phương án RSA-PSS | Chưa thực hiện; dùng tài liệu Sentinel và nguồn chuẩn/mở thích hợp, chỉ build upstream khi cần |
-| S04 | Đánh giá ranh giới cưỡng chế và tương thích CAD, caller/module, offline, hiệu năng | Chưa thực hiện; không gọi kiểm tra nội bộ là chặn trước nạp |
-| S05 | Chốt phương án chữ ký, hợp đồng, thay đổi tối thiểu và tiêu chí PASS | Chưa thực hiện; chủ dự án duyệt trước khi code |
-| S06 | Thực hiện, kiểm thử độc lập theo STD-18; giữ nguyên 5 hạng mục V55 | Chưa thực hiện |
-| S07 | Tích hợp thử DJoin native AutoCAD 2022 x64, Build/APPLOAD/Runtime/hồi quy và AT01–AT08 | Chưa thực hiện |
-| S08 | Nghiệm thu SEC-AT theo ranh giới thực tế, cập nhật README; sau đó mới chuyển SEC-07 | Chưa thực hiện |
-
-##### Cổng nghiệm thu dự kiến (chưa chạy)
-
-| ID | Ca thử | Expected |
-|---|---|---|
-| AT01 | Binary chính thức, đúng host, License hợp lệ | Nạp/chạy đúng nghiệp vụ |
-| AT02 | Binary bị sửa hoặc thay thế | Xác minh phát hiện thay đổi trong phạm vi bảo vệ; từ chối theo ranh giới cưỡng chế đã duyệt, ghi rõ trường hợp không được bảo vệ |
-| AT03 | Thiếu/sai chữ ký, sửa manifest, ký bằng danh tính khác | Từ chối an toàn |
-| AT04 | Đúng chữ ký nhưng sai host/Tool/Feature/version, hoặc danh tính module không khớp file xác minh | Từ chối hoặc báo lỗi tương thích đúng chính sách; không chấp nhận chỉ dựa vào metadata caller tự khai |
-| AT05 | File thiếu/khóa/đọc lỗi, publish dở | Dừng an toàn; bảo toàn bản phát hành cũ |
-| AT06 | File chính thức nhưng License sai/hết hạn/sai Feature/máy | Gate vẫn từ chối |
-| AT07 | Build/APPLOAD/Runtime và Undo/Geometry/XData/Settings gốc | Không hồi quy; kiểm thử hiệu năng |
-| AT08 | Kiểm tra đường nạp và mức cưỡng chế thực tế; kiểm tra giới hạn nếu Add-in không đi qua Gate | Ghi rõ kết quả và giới hạn; không PASS chống sửa đầy đủ nếu chưa chứng minh cưỡng chế tương ứng, không tuyên bố chặn trước thực thi khi chưa kiểm chứng |
-
-Mỗi ca ghi Expected/Actual/Status/Host/Evidence theo AI-14–AI-18. Không sửa dữ liệu hoặc khóa thật để test. Chưa chọn thiết kế cuối, chưa sửa code, chưa tăng version. Quyết định phát triển và tiêu chí PASS phải được đối chiếu source V55, Gate client và nguồn DJoin thực tế trước khi triển khai.
-
-#### 3A. Phương pháp nghiên cứu và phát triển SEC-AT — Sentinel làm chuẩn, mã nguồn mở làm cơ sở
-
-**Đã được chủ dự án duyệt ngày 26/11/2026.** Lấy tài liệu công khai của Sentinel LDK Envelope (ưu tiên Windows V3 Engine cho native ARX) làm chuẩn kiến trúc, năng lực và tiêu chí đánh giá. Tìm các dự án mã nguồn mở, đặc tả và API hệ điều hành tương ứng từng năng lực để phát triển độc lập; không sao chép mã hay suy đoán thuật toán độc quyền của Thales. DcadEnvelope là tên nghiên cứu trước đây, không phải dự án/EXE mới bắt buộc. Định hướng hiện tại ưu tiên ký Add-in và xác minh bằng Gate hiện hành. Giữ V55, Licensecc, SEC06, quy trình cấp phép offline và STD-20 hiện hành.
-
-##### Ma trận ứng viên mã nguồn và công nghệ
-
-Danh sách nghiên cứu trước khi thu hẹp phạm vi được giữ lại làm căn cứ lịch sử. Chỉ đánh giá các ứng viên trực tiếp phục vụ SEC-AT và SEC-07; REF-03 đến REF-08 không phải nhiệm vụ triển khai (REF-05 chỉ có thể tham khảo nguyên lý toàn vẹn file khi cần, không nghiên cứu chống can thiệp RAM chuyên sâu). REF-09 giữ nguyên; REF-01, REF-02, REF-10 là ứng viên SEC-AT, chưa mặc định phải dùng. Quy trình 12 bước chỉ áp dụng cho phạm vi đã duyệt.
-
-| Mã nghiên cứu | Năng lực mục tiêu | Nguồn ứng viên | Vai trò, giới hạn | Trạng thái |
-|---|---|---|---|---|
-| REF-01 | Phân tích binary PE/ARX/DLL | [LIEF](https://github.com/lief-project/LIEF), [Microsoft PE Format](https://learn.microsoft.com/en-us/windows/win32/debug/pe-format) | Đọc cấu trúc và dữ liệu chữ ký; không phải Anti-Tamper hoàn chỉnh | Chờ khảo sát/build nguyên bản |
-| REF-02 | File/Program Integrity Protection | [Authenticode](https://learn.microsoft.com/en-us/windows/win32/secbp/understanding-pe-signatures), [osslsigncode](https://github.com/mtrojnar/osslsigncode), [fs-verity](https://docs.kernel.org/filesystems/fsverity.html) | Ký/xác minh PE; tham khảo hash theo khối. fs-verity là cơ chế Linux, không đưa nguyên kernel sang Windows | Chờ kiểm chứng |
-| REF-03 | Code Encryption | [OpenSSL](https://github.com/openssl/openssl) | Thành phần mật mã tiêu chuẩn, không phải engine bảo vệ mã thực thi; ưu tiên tận dụng thư viện/API đã có nếu đủ | Chờ đánh giá nhu cầu |
-| REF-04 | Code Transformation / Obfuscation | [LLVM](https://github.com/llvm/llvm-project) | Hạ tầng compiler/IR; không có sẵn Envelope Plus của Thales | Ngoài phạm vi — lưu tham khảo |
-| REF-05 | Runtime / Section Integrity | [fsverity-utils](https://github.com/ebiggers/fsverity-utils), [Tigress Integrity](https://tigress.wtf/integrity.html) | Học nguyên lý; hash file không đồng nghĩa toàn vẹn RAM. Tigress không phải mã nguồn mở miễn phí cho mọi mục đích; chỉ nghiên cứu theo điều khoản cho phép | Chưa chọn triển khai |
-| REF-06 | Windowed Decryption | Tài liệu Sentinel V3 | Chưa tìm được hệ thống mở tương đương đã kiểm chứng | Chưa có ứng viên đạt |
-| REF-07 | Function Protection | LLVM, tài liệu Sentinel Envelope Plus | Nền tảng nghiên cứu, không mặc định chuyển được native ARX đã build sang IR | Chưa chọn triển khai |
-| REF-08 | Anti-Tamper chuyên sâu | Tài liệu Sentinel, nghiên cứu mở | Chưa tìm được bộ mã nguồn mở hoàn chỉnh đáp ứng mục tiêu | Chưa có ứng viên đạt |
-| REF-09 | License Enforcement | [Licensecc](https://github.com/open-license-manager/licensecc), TidiDcad V55 | Đã có nền tảng cấp phép; không thay hệ thống hiện hành | Giữ nguyên, nghiệm thu hồi quy |
-| REF-10 | Cưỡng chế xác minh mã | [Microsoft App Control](https://learn.microsoft.com/en-us/windows/security/application-security/application-control/app-control-for-business/appcontrol-and-applocker-overview), chính sách nạp CAD | Năng lực nền tảng Windows, không phải mã nguồn mở; không mặc định yêu cầu khách đổi chính sách máy | Chờ đánh giá tương thích |
-
-Các mã REF chỉ dùng theo dõi nguồn nghiên cứu, không thay ID năng lực SEC hoặc ca nghiệm thu AT01–AT08. Đây là danh sách ứng viên, không phải danh sách thư viện bắt buộc hay chứng nhận tương đương Sentinel.
-
-**Sàng lọc giấy phép:** LIEF (Apache-2.0), OpenSSL 3.x (Apache-2.0), LLVM (Apache-2.0 WITH LLVM-exception), osslsigncode (GPL-3.0 theo dự án), fsverity-utils (MIT; phân biệt với mã Linux kernel). Phải đọc LICENSE/NOTICE của đúng phiên bản/commit và dependency trước khi sao chép, liên kết hoặc phân phối; đánh giá nghĩa vụ GPL riêng, không mặc định được nhúng vào sản phẩm đóng. Công cụ có thể chỉ dùng để tham khảo hoặc kiểm chứng. Không tự thêm dependency khi thành phần hiện hành đủ dùng.
-
-##### Quy trình bắt buộc theo giai đoạn
-
-| Bước | Công việc | Điều kiện chuyển bước |
-|---|---|---|
-| 01 | Đọc tài liệu chính thức Sentinel Envelope và giới hạn từng engine | Có nguồn, phiên bản, năng lực xác nhận được; phân biệt thông tin công khai và giả thuyết |
-| 02 | Phân rã mục tiêu thành năng lực và tiêu chí nghiệm thu | Mỗi năng lực có mục đích, ranh giới bảo mật, đối tượng và hành vi mong đợi |
-| 03 | Tìm ứng viên mở/tiêu chuẩn/API tương ứng | Có URL nguồn chính thức và ma trận đối chiếu năng lực |
-| 04 | Rà chất lượng, phiên bản, giấy phép, phụ thuộc | Ghi commit/tag, LICENSE/NOTICE, điều kiện dùng thương mại, hỗ trợ Windows x64, rủi ro và bảo trì |
-| 05 | Build/chạy thử nguyên bản | Workspace cô lập; log và chứng cứ thật, không tự sửa upstream để ép PASS |
-| 06 | Đánh giá từng ứng viên | Đúng chức năng, khả năng tích hợp native, hiệu năng, giới hạn bảo mật và tình huống lỗi |
-| 07 | Chọn đúng thành phần cần thiết | Có lý do chọn/loại, ưu tiên đơn giản và tận dụng V55; không ghép tất cả thư viện |
-| 08 | Thiết kế DcadEnvelope/SEC-AT | Chốt trust anchor, đối tượng bảo vệ, ranh giới cưỡng chế, fail-closed, tương thích build/CAD; đánh giá tác động và được chủ dự án duyệt trước code |
-| 09 | Triển khai và kiểm thử độc lập | Tuân thủ STD-18 AI-14–AI-18, kiểm tra diff, test lại nguồn cuối |
-| 10 | Tích hợp thử DJoin native AutoCAD 2022 x64 | Đúng baseline được xác nhận; Build/APPLOAD/Runtime và kiểm thử chức năng giữ nguyên riêng |
-| 11 | Đối chiếu với chuẩn Sentinel | Báo đạt/một phần/chưa đạt theo tiêu chí có chứng cứ; ghi giới hạn thực tế, không tự tuyên bố tương đương |
-| 12 | Nghiệm thu và cập nhật tiến độ | Chủ dự án xác nhận; cập nhật trực tiếp mục này trong README DCAD theo STD-17, không tạo file roadmap riêng |
-
-**Nguyên tắc thực hiện:** kế thừa nguồn tốt đã được kiểm chứng; triển khai theo đặc tả và API chuẩn; không tự sáng tạo thuật toán mật mã; không coi mã hóa, ký số hay biến đổi mã đơn lẻ là hệ thống Anti-Tamper hoàn chỉnh. Nếu không tìm được ứng viên đủ tốt hoặc không thể xác minh baseline/giấy phép, ghi rõ blocker và tiếp tục nghiên cứu trước khi triển khai. Chỉ đánh giá bảo vệ file và hiệu lực cưỡng chế kiểm tra trong phạm vi SEC-AT; không mở rộng thành bảo vệ mã/bộ nhớ chuyên sâu. Không được tự ý làm lại Gate, cấp License, thay chính sách Windows/CAD hoặc mở rộng ngoài phạm vi.
-
-**Tiến độ hiện tại:** phương pháp nghiên cứu đã được duyệt; danh sách ứng viên sơ bộ đã lập. Chưa khóa phiên bản upstream, chưa build/test nguyên bản, chưa xác nhận giấy phép theo commit, chưa chọn dependency cuối cùng, chưa thiết kế chi tiết hoặc code SEC-AT. Ưu tiên tiếp theo: thực hiện S02–S04 tại mục 3, đối chiếu nguồn V55 và các chuẩn/API ký số; chỉ build/test ứng viên thực sự cần thiết. Tất cả cổng chưa có bằng chứng giữ NotVerified.
-
-#### 4. Tài liệu chuẩn tham chiếu
-
-- [Thales — Sentinel LDK](https://docs.sentinel.thalesgroup.com/softwareandservices/ldk/default.htm)
-- [Thales — Sentinel LDK Protection: API và Envelope](https://docs.sentinel.thalesgroup.com/softwareandservices/ldk/LDKdocs/ldk-ems/SPNL/LDK_SLnP_Guide/Protection/Protecting_Software/Protection1.htm)
-- [Thales — Windows protection settings / Program Integrity Protection](https://docs.sentinel.thalesgroup.com/ldk/LDKdocs/Env-Win/Windows/Win_NG_Default_Protection_Settings.htm)
-- [Thales — Envelope Plus](https://docs.sentinel.thalesgroup.com/ldk/LDKdocs/Env-Win/Windows/Win_V3_envelope_plus_protection.htm)
-- [Thales — Feature license terms](https://docs.sentinel.thalesgroup.com/softwareandservices/ldk/LDKdocs/ldk-ems/SPNL/LDK_SLnP_Guide/Licensing/Assigning_LicTerms.htm)
-- [Thales — Offline activation](https://docs.sentinel.thalesgroup.com/softwareandservices/ldk/LDKdocs/ldk-ems/SPNL/LDK_SLnP_Guide/Licensing/KeyProtectionSL_Activation.htm)
-- [Thales — V-Clock](https://docs.sentinel.thalesgroup.com/ldk/LDKdocs/SPNL/LDK_SLnP_Guide/Appendixes/HowProtects_TimeBased.htm)
-- [Thales — Clone protection](https://docs.sentinel.thalesgroup.com/ldk/LDKdocs/SPNL/LDK_SLnP_Guide/Licensing/Managing_products/Clone_protection.htm)
-- [Thales — Network concurrency](https://docs.sentinel.thalesgroup.com/softwareandservices/ldk/LDKdocs/ldk-ems/SPNL/LDK_SLnP_Guide/Models/LimitedConcurrent_EndUser.htm)
-- [Thales — Client-side revocation](https://docs.sentinel.thalesgroup.com/softwareandservices/ldk/LDKdocs/SPNL/LDK_SLnP_Guide/Licensing/Client-Side_Lic_Revocation.htm)
-- [Autodesk — Digitally signing custom program files](https://help.autodesk.com/cloudhelp/2025/ENU/AutoCAD-Customization/files/GUID-0A93626D-8389-45FC-969B-B86A2F37D691.htm)
-- [Autodesk — SECURELOAD](https://help.autodesk.com/cloudhelp/2024/ENU/AutoCAD-Core/files/GUID-541566C6-2738-49DD-87C3-C1490E924A02.htm)
-
-Đối chiếu tài liệu 26/11/2026. Năng lực Sentinel phụ thuộc loại khóa, phiên bản và gói bảo vệ; đây là chuẩn tham chiếu phát triển nội bộ, không phải chứng nhận Sentinel hoặc tuyên bố tương thích.
-
-#### 5. Lịch sử tiến độ
-
-- 26/11/2026: V55 được chủ dự án xác nhận chạy OK; roadmap lấy Sentinel LDK làm chuẩn; chọn chống sửa Add-in làm giai đoạn tiếp theo. Chưa code giai đoạn SEC-AT. Giữ nguyên snapshot V55 và các quy ước đang hiệu lực.
-- 26/11/2026: Chủ dự án duyệt phương pháp nghiên cứu SEC-AT: Sentinel Envelope là chuẩn tham chiếu, các thành phần mở/tiêu chuẩn là cơ sở phát triển độc lập; thêm ma trận REF-01–REF-10 và quy trình 12 bước ngay trong README. Chưa chọn dependency cuối, chưa code, chưa tăng version.
-- 26/11/2026: Chủ dự án chốt chỉ 7 hạng mục bảo mật: giữ nguyên chữ ký License, khóa máy, Feature, chống thay Gate và ký bộ bàn giao; phát triển chống sửa Add-in trước, chống lùi đồng hồ sau. Các năng lực bảo mật khác ngoài phạm vi. Giữ tài liệu nghiên cứu làm tham khảo, không phát triển thêm khi chưa được giao. Chỉ cập nhật README, không sửa code hoặc tăng version.
-- 26/11/2026: Cập nhật lưu trình SEC-AT theo hướng ký số Add-in sau build, kiểm tra hai chiều với Gate, ưu tiên Authenticode nhúng và đánh giá phương án RSA-PSS dự phòng. Bổ sung P01–P04, R01–R05, S01–S08; ghi rõ ranh giới cưỡng chế, điều kiện duyệt thiết kế và phạm vi nghiệm thu. Chưa kiểm chứng chứng thư, baseline, tương thích hoặc cơ chế cưỡng chế; chưa code, chưa tăng version. Giữ nguyên 7 hạng mục.
+**Trạng thái xác minh:** V55 được chủ dự án xác nhận chạy OK; ZIP nguồn trên GitHub, log build MSVC, kiểm thử ký/xác minh PFX và Build/APPLOAD/Runtime DJoin/Dtscr chưa được xác minh độc lập. SEC-AT chưa chốt thiết kế kỹ thuật, chưa code, chưa nghiệm thu. SEC-07 chưa triển khai.
