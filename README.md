@@ -91,7 +91,7 @@ GitHub: [Tidi6969](https://github.com/Tidi6969)
 | 6 | Chống sửa Add-in (SEC-AT) | V59 — đã triển khai; các ca chính Dtscr V121 / AutoCAD 2022 được chủ dự án xác nhận |
 | 7 | Chống lùi đồng hồ (SEC-07) | **Tạm dừng phát triển** — đã khảo sát, chưa code |
 | 8 | Machine Identity V2 (cải tiến LIC-02) | SMBIOS 2/3; ứng viên V61 đã có nguồn và Linux QA theo Plan, Windows/CAD NotVerified; baseline duy trì V59. |
-| 9 | DCAD Feature-Bound Execution (FBE) — chống bỏ qua Gate | 09.1 và 09.2 chủ dự án đã duyệt 27/11/2026; ưu tiên FBE Data và thư viện mật mã hiện có. 09.3 đề xuất DEK riêng theo Feature/resource revision, recipient key riêng theo cài đặt Windows, DPAPI machine-scope; chờ duyệt tác động enrollment/cấp lại và tương thích, chưa kiểm thử. Chưa code/API chính thức; giữ nguyên V61, chỉ tích hợp sau nghiệm thu 08 và pilot. |
+| 9 | DCAD Feature-Bound Execution (FBE) — chống bỏ qua Gate | 09.1 và 09.2 đã duyệt; 09.3 chủ dự án từ chối DPAPI/recipient key gắn cài đặt Windows ngày 27/11/2026. Yêu cầu giữ portable; đề xuất nghiên cứu Portable Feature Grant (DEK cấp theo resource có chữ ký, không bí mật trước người giữ grant), đánh giá passphrase nếu chấp nhận thay UX; chưa duyệt/chưa thử. Giữ nguyên V61, chưa code/API chính thức; chỉ tích hợp sau nghiệm thu 08 và pilot. |
 
 **Quyết định:** giữ cơ chế kiểm tra thời hạn License hiện hành. Không bổ sung đồng hồ ảo, TPM, file trạng thái thời gian hoặc dịch vụ nền. Chỉ tiếp tục 07 khi chủ dự án yêu cầu. System Check tạm hoãn. FBE không thay Gate hoặc các lớp bảo mật hiện hữu; phải duyệt ma trận tác động, quản lý khóa, tương thích, phân quyền, build/phát hành và rollback trước tích hợp.
 
