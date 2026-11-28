@@ -75,11 +75,11 @@ GitHub: [Tidi6969](https://github.com/Tidi6969)
 | Ứng dụng | Phiên bản nguồn/toolkit | Repository | ZIP | Trạng thái |
 | --- | --- | --- | --- | --- |
 | DfreeCad | **V12-update** — sửa build tăng dần và cập nhật DProgram an toàn | [Tidi6969/DfreeCad](https://github.com/Tidi6969/DfreeCad) | [DfreeCad-V12-Update.zip](https://github.com/Tidi6969/DfreeCad/releases/download/V12-update/DfreeCad-V12-Update.zip) | **Mới nhất đã lưu: V12 (11/11/2026)** — ZIP cập nhật 5.699 byte, SHA256 `e168d17b2545b4f6a6c46e5e64a6a84cc7d28dd502cafdc0dc4509d1a9469979`. **Nguồn đầy đủ V9** ([ZIP V9](https://github.com/Tidi6969/DfreeCad/releases/download/V9-fullsource/DfreeCad-V9-FullSource-BuildKit.zip)) + cập nhật V10 (compiler) và V11 (Measurement). Log người dùng `Build-20261111-160857.log`: MSVC 14.30+NMake PASS; V10 từ chối `DProgram\DfreeCad` có sẵn trước CMake. V12 tạo Build-V12.ps1, giữ build cache, staging riêng; sau khi kiểm tra EXE mới thành công, sao lưu DProgram cũ và thay bản mới. **QA áp dụng nguồn/ZIP và mô phỏng thay cũ, giữ backup, từ chối staging thiếu file=PASS** ([Windows CI](https://github.com/Tidi6969/DfreeCad/actions/runs/42994081641)); **rollback khi lỗi ở giữa bước chuyển bản=NotVerified**; **Build thực tế/Runtime Measurement=NotVerified**, **nghiệm thu người dùng=NotVerified**. Gói cập nhật nguồn, chưa có EXE được xác nhận. |
-| TidiDcad | **V59** — baseline duy trì, chủ dự án xác nhận build OK 26/11/2026 | Chưa xác định kho module riêng | Chưa xác minh ZIP trên GitHub | SEC-AT đã triển khai, kiểm nghiệm các ca chính với Dtscr V121 / AutoCAD 2022; SEC-07 **tạm dừng phát triển**; hạng mục 08 có ứng viên V61 SMBIOS 2/3, chờ nghiệm thu Windows/CAD; hạng mục 09 FBE nghiên cứu độc lập, chưa code/tích hợp. |
+| TidiDcad | **V68** — baseline duy trì, kế thừa V61; chủ dự án xác nhận Setup OK và SMBIOS 2/3 OK (28/11/2026) | Chưa xác định kho module riêng | Chưa xác minh ZIP trên GitHub | SEC-AT đã kiểm nghiệm các ca chính với Dtscr V121 / AutoCAD 2022 trên V59; 08 được chủ dự án xác nhận OK; 07 và 09 tạm dừng, System Check tạm hoãn. Log riêng từng ca/host và production release V68: NotVerified. |
 
 ### Tổng thể hướng phát triển thực tế — TidiDcad
 
-**Baseline hiện tại: V59** — giữ nguyên năm hạng mục bảo mật từ V55, bổ sung chống sửa Add-in; duy trì sáu hạng mục, tạm dừng hạng mục 07, Plan 08 cải tiến LIC-02 có ứng viên V61 chưa nghiệm thu; ngày 27/11/2026 bổ sung Plan 09 DCAD-FBE nghiên cứu độc lập, chỉ tích hợp sau khi 08 và từng cổng FBE được nghiệm thu.
+**Baseline duy trì hiện tại: V68 (kế thừa V61)** — giữ 01–06, chủ dự án xác nhận Setup V68 OK và hạng mục 08 SMBIOS 2/3 OK ngày 28/11/2026. Hạng mục 07 và 09 tạm dừng, System Check tạm hoãn. V59 vẫn là bản có bằng chứng xác nhận các ca SEC-AT với Dtscr V121 trên AutoCAD 2022; không suy rộng sang mọi host. Chi tiết theo Plan STD-20.
 
 | STT | Hạng mục bảo mật | Trạng thái / quyết định |
 | --- | --- | --- |
@@ -90,11 +90,13 @@ GitHub: [Tidi6969](https://github.com/Tidi6969)
 | 5 | Ký số bộ bàn giao (SEC-03) | Giữ nguyên |
 | 6 | Chống sửa Add-in (SEC-AT) | V59 — đã triển khai; các ca chính Dtscr V121 / AutoCAD 2022 được chủ dự án xác nhận |
 | 7 | Chống lùi đồng hồ (SEC-07) | **Tạm dừng phát triển** — đã khảo sát, chưa code |
-| 8 | Machine Identity V2 (cải tiến LIC-02) | SMBIOS 2/3; ứng viên V61 đã có nguồn và Linux QA theo Plan, Windows/CAD NotVerified; baseline duy trì V59. |
-| 9 | DCAD Feature-Bound Execution (FBE) — chống bỏ qua Gate | 09.1–09.2 đã duyệt theo phạm vi trước; 27/11/2026 chủ dự án điều chỉnh 09.3 cho phép một thành phần chạy nền Windows độc lập, portable là ưu tiên, không bắt buộc tuyệt đối. Nghiên cứu Windows Service user-mode dùng chung nhằm Anti-Gate Bypass; chưa chọn thiết kế/IPC/quản lý khóa, không mặc định chấp nhận DPAPI gắn cài đặt Windows, chưa code/test. Giữ nguyên V61, chỉ tích hợp sau nghiệm thu 08 và pilot. |
+| 8 | Machine Identity V2 (cải tiến LIC-02) | SMBIOS 2/3; triển khai từ V60/V61, kế thừa V68; chủ dự án xác nhận OK ngày 28/11/2026 (UserReportedWorking=YES); log riêng từng ca Windows/CAD NotVerified. |
+| 9 | DCAD Feature-Bound Execution (FBE) — chống bỏ qua Gate | Tạm dừng tại 09.3 theo yêu cầu chủ dự án 28/11/2026; giữ lịch sử 09.1–09.2 đã duyệt hướng nghiên cứu, chưa duyệt thiết kế, chưa code/test/tích hợp. Giữ nguyên V68; chỉ tiếp tục khi chủ dự án yêu cầu. |
 
 **Quyết định:** giữ cơ chế kiểm tra thời hạn License hiện hành. Không bổ sung đồng hồ ảo, TPM, file trạng thái thời gian hoặc dịch vụ nền. Chỉ tiếp tục 07 khi chủ dự án yêu cầu. System Check tạm hoãn. FBE không thay Gate hoặc các lớp bảo mật hiện hữu; phải duyệt ma trận tác động, quản lý khóa, tương thích, phân quyền, build/phát hành và rollback trước tích hợp.
 
 **Trạng thái xác minh:** chủ dự án báo V59 build OK, Dtscr V121 ký/chạy OK, ARX chưa ký bị từ chối ADDIN_PE_INVALID, ARX bị sửa bị từ chối ADDIN_SIGNATURE_INVALID, khôi phục bản gốc OK. Ca build/ký lại giữ Gate/License chưa có log riêng; không suy diễn nghiệm thu mọi host hoặc chống sửa tuyệt đối. ZIP V59/V121 trên GitHub chưa xác minh. Không sửa code hay tăng phiên bản trong lần cập nhật trạng thái này.
+
+**Ghi nhận 28/11/2026:** Chủ dự án xác nhận hạng mục 08 SMBIOS 2/3 OK; ghi nhận nghiệm thu theo phản hồi, không thay log kiểm thử riêng từng trường hợp hoặc CAD host. V68 là baseline duy trì theo xác nhận Setup trước đó; ZIP V68 và phát hành production trên GitHub chưa xác minh. Chỉ đồng bộ trạng thái, không sửa code hay tăng version.
 
 **Plan chính thức:** [Quy ước 20](https://github.com/Tidi6969/QuyUoc/blob/main/20_Quy_uoc_ban_giao_key_Addin.md). Tuân thủ [quy ước 18](https://github.com/Tidi6969/QuyUoc/blob/main/18_Karpathy_Guidelines_cho_AI_lap_trinh.md).
